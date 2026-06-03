@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart — Online Shopping Site</title>
+    <style>
+        :root {
+            --flipkart-blue: #2874f0;
+            --flipkart-yellow: #ffe500;
+            --flipkart-yellow-hover: #ffe000;
+            --flipkart-dark: #172337;
+            --flipkart-gray: #f1f3f6;
+            --flipkart-text: #212121;
+            --flipkart-text-light: #878787;
+            --flipkart-green: #388e3c;
+            --flipkart-orange: #ff9f00;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.16);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--flipkart-gray);
+            font-family: 'Segoe UI', 'Inter', Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ==================== MAIN CONTAINER ==================== */
+        .container {
+            max-width: 1340px;
+            margin: 0 auto;
+            background: var(--flipkart-gray);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ==================== STICKY HEADER ==================== */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--flipkart-blue);
+            padding: 10px 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .logo-text .fk-yellow {
+            color: var(--flipkart-yellow);
+        }
+
+        .logo-sub {
+            font-size: 10.5px;
+            color: #c8d6e5;
+            font-style: italic;
+            letter-spacing: 0.3px;
+            margin-top: 2px;
+        }
+
+        .logo-sub .plus-text {
+            color: var(--flipkart-yellow);
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .header-search-wrapper {
+            flex: 1;
+            min-width: 280px;
+            display: flex;
+            align-items: center;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .header-search-wrapper:focus-within {
+            box-shadow: 0 0 0 3px rgba(255, 229, 0, 0.5);
+        }
+
+        .header-search-wrapper input {
+            flex: 1;
+            border: none;
+            padding: 13px 16px;
+            font-size: 15px;
+            outline: none;
+            color: var(--flipkart-text);
+            background: transparent;
+            min-width: 0;
+        }
+
+        .header-search-wrapper input::placeholder {
+            color: #aaa;
+        }
+
+        .search-icon-btn {
+            background: none;
+            border: none;
+            padding: 10px 16px;
+            cursor: pointer;
+            color: var(--flipkart-blue);
+            font-size: 18px;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .search-icon-btn:hover {
+            color: #1a5dc4;
+            background: #f5f5f5;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-shrink: 0;
+        }
+
+        .header-btn {
+            padding: 10px 22px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-login {
+            background: var(--white);
+            color: var(--flipkart-blue);
+        }
+
+        .btn-login:hover {
+            background: #e8f0fe;
+            transform: translateY(-1px);
+        }
+
+        .btn-cart {
+            background: transparent;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+
+        .btn-cart:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .btn-seller {
+            background: var(--flipkart-yellow);
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .btn-seller:hover {
+            background: #ffe000;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cart-badge {
+            background: var(--flipkart-yellow);
+            color: #1a1a1a;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* ==================== NAV STRIP ==================== */
+        .nav-strip {
+            background: var(--white);
+            padding: 0 28px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex-shrink: 0;
+        }
+
+        .nav-strip::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            flex-shrink: 0;
+            border-radius: 6px;
+            min-width: 70px;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: #f5f7fa;
+            color: var(--flipkart-blue);
+        }
+
+        .nav-item .nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover .nav-icon {
+            transform: scale(1.15);
+        }
+
+        .nav-item .nav-label {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-item:hover .nav-label {
+            color: var(--flipkart-blue);
+        }
+
+        .nav-item.active {
+            color: var(--flipkart-blue);
+        }
+
+        .nav-item.active .nav-label {
+            color: var(--flipkart-blue);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background: var(--flipkart-blue);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* ==================== MAIN CONTENT AREA ==================== */
+        .main-content {
+            padding: 16px 20px;
+            flex: 1;
+        }
+
+        /* ==================== LOCATION BAR ==================== */
+        .location-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--white);
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 14px;
+            font-size: 13px;
+            color: #555;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .location-bar .loc-icon {
+            font-size: 16px;
+        }
+
+        .location-bar .loc-name {
+            font-weight: 600;
+            color: var(--flipkart-text);
+        }
+
+        .location-bar .loc-change {
+            color: var(--flipkart-blue);
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .location-bar .loc-change:hover {
+            text-decoration: underline;
+        }
+
+        /* ==================== CATEGORY GRID ==================== */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 18px 10px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            border: 1.5px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: #e0e0e0;
+        }
+
+        .category-card .cat-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+            transition: var(--transition);
+            display: block;
+        }
+
+        .category-card:hover .cat-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .category-card .cat-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--flipkart-text);
+            letter-spacing: 0.2px;
+        }
+
+        .category-card .cat-offer {
+            font-size: 11px;
+            color: var(--flipkart-green);
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        /* ==================== BANNER CAROUSEL AREA ==================== */
+        .banner-carousel-area {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .banner-slide {
+            height: 240px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px 24px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .banner-slide:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .banner-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.55) 100%);
+            z-index: 1;
+            border-radius: var(--radius-lg);
+        }
+
+        .banner-slide .banner-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+        }
+
+        .banner-slide .banner-tag {
+            display: inline-block;
+            background: var(--flipkart-yellow);
+            color: #1a1a1a;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .banner-slide .banner-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner-slide .banner-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .banner-main {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><defs><linearGradient id="g" x1="0%25" y1="0%25" x2="100%25" y2="100%25"><stop offset="0%25" style="stop-color:%233a0ca3"/><stop offset="50%25" style="stop-color:%234365d1"/><stop offset="100%25" style="stop-color:%23720e9e"/></linearGradient></defs><rect fill="url(%23g)" width="800" height="400"/><circle cx="600" cy="100" r="180" fill="rgba(255,229,0,0.08)"/><circle cx="150" cy="300" r="120" fill="rgba(255,255,255,0.04)"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .banner-secondary {
+            background: linear-gradient(135deg, #e8455b 0%, #d53b4c 40%, #b71c2d 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400"><defs><linearGradient id="g2" x1="0%25" y1="0%25" x2="100%25" y2="100%25"><stop offset="0%25" style="stop-color:%23e8455b"/><stop offset="100%25" style="stop-color:%23991b2a"/></linearGradient></defs><rect fill="url(%23g2)" width="600" height="400"/><circle cx="500" cy="80" r="140" fill="rgba(255,255,255,0.06)"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .banner-tertiary {
+            background: linear-gradient(135deg, #f9f3e4 0%, #f1efd9 50%, #e8e0c0 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><linearGradient id="g3" x1="0%25" y1="0%25" x2="100%25" y2="100%25"><stop offset="0%25" style="stop-color:%23f9f3e4"/><stop offset="100%25" style="stop-color:%23e8dcc8"/></linearGradient></defs><rect fill="url(%23g3)" width="400" height="400"/><circle cx="300" cy="320" r="100" fill="rgba(180,160,120,0.15)"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .banner-tertiary .banner-content {
+            color: #3d3220;
+        }
+
+        .banner-tertiary .banner-title {
+            text-shadow: none;
+        }
+
+        /* ==================== PRODUCT SECTION ==================== */
+        .product-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 20px 20px 16px;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .product-section:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1.5px solid #f0f0f0;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--flipkart-text);
+            letter-spacing: -0.3px;
+        }
+
+        .section-header .view-all {
+            padding: 9px 18px;
+            border-radius: 20px;
+            border: 1.5px solid #e0e0e0;
+            background: var(--white);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--flipkart-blue);
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+        }
+
+        .section-header .view-all:hover {
+            background: #e8f0fe;
+            border-color: var(--flipkart-blue);
+        }
+
+        .product-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .product-card {
+            background: #fafafa;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1.5px solid transparent;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: #e0e0e0;
+            background: #fff;
+        }
+
+        .product-card .img-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 240px;
+            background: #f5f5f5;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .product-card .discount-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--flipkart-green);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 2;
+            letter-spacing: 0.3px;
+        }
+
+        .product-card .wishlist-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 2;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .product-card .wishlist-btn:hover {
+            background: #fff;
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-info {
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--flipkart-text);
+            margin-bottom: 4px;
+            letter-spacing: 0.2px;
+        }
+
+        .product-info .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .product-info .mrp {
+            font-size: 13px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 6px;
+        }
+
+        .product-info .rating {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #388e3c;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        /* ==================== FEATURED BRANDS ==================== */
+        .featured-brands {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .featured-brands h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--flipkart-text);
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .brands-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+        }
+
+        .brand-card-wrap {
+            position: relative;
+        }
+
+        .brand-card {
+            background: #fafafa;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1.5px solid #eee;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: #d0d0d0;
+        }
+
+        .brand-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .brand-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .brand-card-info {
+            padding: 10px 14px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .brand-card-info .brand-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--flipkart-text);
+            margin-bottom: 2px;
+        }
+
+        .brand-card-info .brand-offer {
+            font-size: 12px;
+            color: var(--flipkart-green);
+            font-weight: 600;
+        }
+
+        .brand-ad-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 7px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        /* ==================== TRENDS SECTION ==================== */
+        .trends-section {
+            background: linear-gradient(135deg, #fffde7 0%, #fff9c4 40%, #ffe500 100%);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .trends-section h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 14px;
+        }
+
+        .trends-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .trend-card {
+            background: #fff;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .trend-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .trend-card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .trend-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .trend-card-label {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 11px 14px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.4px;
+            transition: var(--transition);
+        }
+
+        .trend-card:hover .trend-card-label {
+            background: var(--flipkart-blue);
+        }
+
+        /* ==================== FOOTER ==================== */
+        .site-footer {
+            background: var(--flipkart-dark);
+            color: #fff;
+            margin-top: auto;
+            border-radius: 0;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1.4fr 1.6fr 1.6fr;
+            gap: 28px;
+            padding: 44px 40px 34px;
+            border-bottom: 1px solid #2e3f56;
+            max-width: 1340px;
+            margin: 0 auto;
+        }
+
+        .footer-col h4 {
+            font-size: 11px;
+            font-weight: 600;
+            color: #8a9bb0;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 9px;
+        }
+
+        .footer-col ul li a {
+            color: #c8d6e5;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--flipkart-yellow);
+        }
+
+        .footer-mail-address p {
+            font-size: 13px;
+            color: #c8d6e5;
+            line-height: 1.7;
+            margin-bottom: 3px;
+        }
+
+        .footer-mail-address .social-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #8a9bb0;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-top: 16px;
+            margin-bottom: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .social-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1.5px solid #3d5166;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c8d6e5;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            border-color: var(--flipkart-yellow);
+            color: var(--flipkart-yellow);
+            background: rgba(255, 229, 0, 0.07);
+        }
+
+        .footer-address p {
+            font-size: 12.5px;
+            color: #c8d6e5;
+            line-height: 1.75;
+        }
+
+        .footer-address a {
+            color: #5ba4f5;
+            text-decoration: none;
+            font-size: 12.5px;
+        }
+
+        .footer-address a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 1340px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 26px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .footer-bottom-links a {
+            color: #8a9bb0;
+            text-decoration: none;
+            font-size: 12.5px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: color 0.2s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--flipkart-yellow);
+        }
+
+        .footer-bottom-links a .fbl-icon {
+            font-size: 16px;
+        }
+
+        .footer-copy {
+            font-size: 12.5px;
+            color: #8a9bb0;
+        }
+
+        .payment-icons {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .pay-badge {
+            background: #fff;
+            border-radius: 4px;
+            padding: 3px 7px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #172337;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .pay-badge.visa {
+            color: #1a1f71;
+        }
+
+        .pay-badge.mc {
+            color: #eb001b;
+        }
+
+        .pay-badge.amex {
+            color: #016fd0;
+        }
+
+        .pay-badge.upi {
+            color: #097939;
+        }
+
+        .pay-badge.rupay {
+            color: #1a6aa7;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1200px) {
+            .category-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .banner-carousel-area {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .banner-tertiary {
+                grid-column: span 2;
+                height: 180px;
+            }
+
+            .product-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .brands-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .trends-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sticky-header {
+                gap: 10px;
+                padding: 8px 14px;
+            }
+
+            .header-search-wrapper {
+                order: 3;
+                flex: 1 1 100%;
+                min-width: 0;
+            }
+
+            .banner-carousel-area {
+                grid-template-columns: 1fr;
+            }
+
+            .banner-tertiary {
+                grid-column: span 1;
+                height: 200px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 28px 18px 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 14px 18px;
+            }
+
+            .nav-strip {
+                padding: 0 10px;
+                gap: 2px;
+            }
+
+            .nav-item {
+                padding: 10px 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .product-row {
+                grid-template-columns: 1fr;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .category-card {
+                padding: 12px 6px;
+            }
+
+            .category-card .cat-icon {
+                font-size: 26px;
+            }
+
+            .brands-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trends-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .header-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .banner-slide {
+                height: 160px;
+                padding: 14px 16px;
+            }
+
+            .banner-slide .banner-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ==================== STICKY HEADER ==================== -->
+        <header class="sticky-header">
+            <div class="logo-area" title="Flipkart Home">
+                <span class="logo-text">Flip<span class="fk-yellow">kart</span></span>
+                <span class="logo-sub">Explore <span class="plus-text">Plus</span></span>
+            </div>
+
+            <div class="header-search-wrapper">
+                <input type="text" placeholder="Search for products, brands and more">
+                <button class="search-icon-btn" aria-label="Search">🔍</button>
+            </div>
+
+            <div class="header-actions">
+                <button class="header-btn btn-login">👤 Login</button>
+                <button class="header-btn btn-cart">
+                    🛒 Cart <span class="cart-badge">0</span>
+                </button>
+                <button class="header-btn btn-seller">💼 Become a Seller</button>
+            </div>
+        </header>
+
+        <!-- ==================== NAVIGATION STRIP ==================== -->
+        <nav class="nav-strip">
+            <div class="nav-item active">
+                <span class="nav-icon">📱</span>
+                <span class="nav-label">Mobiles</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">💻</span>
+                <span class="nav-label">Laptops</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">👗</span>
+                <span class="nav-label">Fashion</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📺</span>
+                <span class="nav-label">Electronics</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">🛋️</span>
+                <span class="nav-label">Home</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">🧸</span>
+                <span class="nav-label">Toys & Baby</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">✈️</span>
+                <span class="nav-label">Travel</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">💄</span>
+                <span class="nav-label">Beauty</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">🏍️</span>
+                <span class="nav-label">Bikes & Cars</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">🎮</span>
+                <span class="nav-label">Gaming</span>
+            </div>
+        </nav>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <div class="main-content">
+
+            <!-- Location Bar -->
+            <div class="location-bar">
+                <span class="loc-icon">📍</span>
+                <span>Delivering to</span>
+                <span class="loc-name">Vadodara 390001</span>
+                <span class="loc-change">Change Location</span>
+            </div>
+
+            <!-- Category Grid -->
+            <div class="category-grid">
+                <div class="category-card">
+                    <span class="cat-icon">📱</span>
+                    <span class="cat-name">Mobiles</span>
+                    <span class="cat-offer">Up to 40% Off</span>
+                </div>
+                <div class="category-card">
+                    <span class="cat-icon">👟</span>
+                    <span class="cat-name">Shoes</span>
+                    <span class="cat-offer">Min. 60% Off</span>
+                </div>
+                <div class="category-card">
+                    <span class="cat-icon">👕</span>
+                    <span class="cat-name">T-Shirts</span>
+                    <span class="cat-offer">From ₹199</span>
+                </div>
+                <div class="category-card">
+                    <span class="cat-icon">🛋️</span>
+                    <span class="cat-name">Furniture</span>
+                    <span class="cat-offer">Up to 70% Off</span>
+                </div>
+                <div class="category-card">
+                    <span class="cat-icon">🔌</span>
+                    <span class="cat-name">Electronics</span>
+                    <span class="cat-offer">Best Deals</span>
+                </div>
+                <div class="category-card">
+                    <span class="cat-icon">💄</span>
+                    <span class="cat-name">Beauty</span>
+                    <span class="cat-offer">Up to 50% Off</span>
+                </div>
+                <div class="category-card">
+                    <span class="cat-icon">🎁</span>
+                    <span class="cat-name">Gift Cards</span>
+                    <span class="cat-offer">Instant Delivery</span>
+                </div>
+            </div>
+
+            <!-- Banner Carousel Area -->
+            <div class="banner-carousel-area">
+                <div class="banner-slide banner-main">
+                    <div class="banner-content">
+                        <span class="banner-tag">🔥 Mega Sale</span>
+                        <div class="banner-title">Big Billion Days</div>
+                        <div class="banner-subtitle">Up to 80% off on top brands</div>
+                    </div>
+                </div>
+                <div class="banner-slide banner-secondary">
+                    <div class="banner-content">
+                        <span class="banner-tag">📱 New Launch</span>
+                        <div class="banner-title">Smartphone Bonanza</div>
+                        <div class="banner-subtitle">Exchange offers + No-cost EMI</div>
+                    </div>
+                </div>
+                <div class="banner-slide banner-tertiary">
+                    <div class="banner-content">
+                        <span class="banner-tag" style="background:#3d3220;color:#fff;">🏠 Home</span>
+                        <div class="banner-title">Decor Deals</div>
+                        <div class="banner-subtitle">Starting ₹299 only</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Decor & Furnishing Section -->
+            <div class="product-section">
+                <div class="section-header">
+                    <h2>🏠 Home Decor & Furnishing</h2>
+                    <button class="view-all">View All ➜</button>
+                </div>
+                <div class="product-row">
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <span class="discount-badge">50% Off</span>
+                            <button class="wishlist-btn">♡</button>
+                            <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?w=600&h=400&fit=crop"
+                                alt="Key Holders" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <h3>Key Holders</h3>
+                            <span class="price">₹249</span>
+                            <span class="mrp">₹499</span>
+                            <div class="rating">⭐ 4.3</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <span class="discount-badge">55% Off</span>
+                            <button class="wishlist-btn">♡</button>
+                            <img src="https://images.unsplash.com/photo-1501139083538-0139583c060f?w=600&h=400&fit=crop"
+                                alt="Wall Clocks" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <h3>Wall Clocks</h3>
+                            <span class="price">₹449</span>
+                            <span class="mrp">₹999</span>
+                            <div class="rating">⭐ 4.5</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <span class="discount-badge">60% Off</span>
+                            <button class="wishlist-btn">♡</button>
+                            <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?w=600&h=400&fit=crop"
+                                alt="Torches" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <h3>LED Torches</h3>
+                            <span class="price">₹199</span>
+                            <span class="mrp">₹499</span>
+                            <div class="rating">⭐ 4.1</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <span class="discount-badge">45% Off</span>
+                            <button class="wishlist-btn">♡</button>
+                            <img src="https://images.unsplash.com/photo-1585435557343-3b092031d4f7?w=600&h=400&fit=crop"
+                                alt="Mosquito Nets" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <h3>Mosquito Nets</h3>
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹649</span>
+                            <div class="rating">⭐ 4.0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electronics & Gadgets Section -->
+            <div class="product-section">
+                <div class="section-header">
+                    <h2>⚡ Electronics & Gadgets</h2>
+                    <button class="view-all">View All ➜</button>
+                </div>
+                <div class="product-row">
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <span class="discount-badge">40% Off</span>
+                            <button class="wishlist-btn">♡</button>
+                            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&h=400&fit=crop"
+                                alt="Smartphones" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <h3>Smartphones</h3>
+                            <span class="price">₹9,999</span>
+                            <span class="mrp">₹16,999</span>
+                            <div class="rating">⭐ 4.4</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <span class="discount-badge">60% Off</span>
+                            <button class="wishlist-btn">♡</button>
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=400&fit=crop"
+                                alt="Headphones" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <h3>Headphones</h3>
+                            <span class="price">₹799</span>
+                            <span class="mrp">₹1,999</span>
+                            <div class="rating">⭐ 4.6</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <span class="discount-badge">70% Off</span>
+                            <button class="wishlist-btn">♡</button>
+                            <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=400&fit=crop"
+                                alt="Smart Watches" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <h3>Smart Watches</h3>
+                            <span class="price">₹1,499</span>
+                            <span class="mrp">₹4,999</span>
+                            <div class="rating">⭐ 4.3</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="img-wrap">
+                            <span class="discount-badge">55% Off</span>
+                            <button class="wishlist-btn">♡</button>
+                            <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&h=400&fit=crop"
+                                alt="Bluetooth Speakers" loading="lazy">
+                        </div>
+                        <div class="product-info">
+                            <h3>Bluetooth Speakers</h3>
+                            <span class="price">₹999</span>
+                            <span class="mrp">₹2,199</span>
+                            <div class="rating">⭐ 4.5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Brands -->
+            <div class="featured-brands">
+                <h2>🏷️ Featured Brands</h2>
+                <div class="brands-row">
+                    <div class="brand-card-wrap">
+                        <div class="brand-card">
+                            <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&h=350&fit=crop"
+                                alt="Nothing Phone" loading="lazy">
+                            <div class="brand-card-info">
+                                <div class="brand-name">Nothing Phone (4a)</div>
+                                <div class="brand-offer">From ₹30,499*</div>
+                            </div>
+                        </div>
+                        <span class="brand-ad-badge">AD</span>
+                    </div>
+                    <div class="brand-card-wrap">
+                        <div class="brand-card">
+                            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&h=350&fit=crop"
+                                alt="Moto Book" loading="lazy">
+                            <div class="brand-card-info">
+                                <div class="brand-name">Moto Book 60 OLED</div>
+                                <div class="brand-offer">From ₹54,990*</div>
+                            </div>
+                        </div>
+                        <span class="brand-ad-badge">AD</span>
+                    </div>
+                    <div class="brand-card-wrap">
+                        <div class="brand-card">
+                            <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&h=350&fit=crop"
+                                alt="Pond's" loading="lazy">
+                            <div class="brand-card-info">
+                                <div class="brand-name">Pond's — Gentle Care</div>
+                                <div class="brand-offer">Shop Now</div>
+                            </div>
+                        </div>
+                        <span class="brand-ad-badge">AD</span>
+                    </div>
+                    <div class="brand-card-wrap">
+                        <div class="brand-card">
+                            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=350&fit=crop"
+                                alt="Sensodyne" loading="lazy">
+                            <div class="brand-card-info">
+                                <div class="brand-name">Sensodyne Protection</div>
+                                <div class="brand-offer">Up to 50% Off</div>
+                            </div>
+                        </div>
+                        <span class="brand-ad-badge">AD</span>
+                    </div>
+                    <div class="brand-card-wrap">
+                        <div class="brand-card">
+                            <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&h=350&fit=crop"
+                                alt="Blue Star" loading="lazy">
+                            <div class="brand-card-info">
+                                <div class="brand-name">Blue Star — Stay Cool</div>
+                                <div class="brand-offer">Up to 25% Off</div>
+                            </div>
+                        </div>
+                        <span class="brand-ad-badge">AD</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trends You May Like -->
+            <div class="trends-section">
+                <h2>🔥 Trends You May Like</h2>
+                <div class="trends-row">
+                    <div class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=400&fit=crop"
+                            alt="Oversized" loading="lazy">
+                        <div class="trend-card-label">Oversized Tops</div>
+                    </div>
+                    <div class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=400&fit=crop"
+                            alt="SquareDial" loading="lazy">
+                        <div class="trend-card-label">Square Dial Watches</div>
+                    </div>
+                    <div class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=400&fit=crop"
+                            alt="Bodycon" loading="lazy">
+                        <div class="trend-card-label">Bodycon Dresses</div>
+                    </div>
+                    <div class="trend-card">
+                        <img src="https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=600&h=400&fit=crop"
+                            alt="MegaLashes" loading="lazy">
+                        <div class="trend-card-label">Mega Lashes Kit</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END MAIN CONTENT -->
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Flipkart Stories</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Corporate Information</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Group Companies</h4>
+                    <ul>
+                        <li><a href="#">Myntra</a></li>
+                        <li><a href="#">Cleartrip</a></li>
+                        <li><a href="#">Shopsy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="#">Payments</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Cancellation & Returns</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Consumer Policy</h4>
+                    <ul>
+                        <li><a href="#"><strong>Cancellation & Returns</strong></a></li>
+                        <li><a href="#"><strong>Terms Of Use</strong></a></li>
+                        <li><a href="#"><strong>Security</strong></a></li>
+                        <li><a href="#"><strong>Privacy</strong></a></li>
+                        <li><a href="#"><strong>Sitemap</strong></a></li>
+                        <li><a href="#"><strong>Grievance Redressal</strong></a></li>
+                        <li><a href="#"><strong>EPR Compliance</strong></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col footer-mail-address">
+                    <h4>Mail Us:</h4>
+                    <p>Flipkart Internet Private Limited,</p>
+                    <p>Buildings Alyssa, Begonia &</p>
+                    <p>Clove Embassy Tech Village,</p>
+                    <p>Outer Ring Road, Devarabeesanahalli,</p>
+                    <p>Bengaluru, 560103, Karnataka, India</p>
+                    <div class="social-label">Social:</div>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" title="Facebook">f</a>
+                        <a href="#" class="social-icon" title="X / Twitter">𝕏</a>
+                        <a href="#" class="social-icon" title="YouTube">▶</a>
+                        <a href="#" class="social-icon" title="Instagram">◎</a>
+                    </div>
+                </div>
+                <div class="footer-col footer-address">
+                    <h4>Registered Office:</h4>
+                    <p>Flipkart Internet Private Limited,</p>
+                    <p>Buildings Alyssa, Begonia &</p>
+                    <p>Clove Embassy Tech Village,</p>
+                    <p>Outer Ring Road, Devarabeesanahalli,</p>
+                    <p>Bengaluru, 560103, Karnataka, India</p>
+                    <p style="margin-top:6px;">CIN: U51109KA2012PTC066107</p>
+                    <p>📞 <a href="tel:04445614700">044-45614700</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-links">
+                    <a href="#"><span class="fbl-icon">🛒</span> Become a Seller</a>
+                    <a href="#"><span class="fbl-icon">📢</span> Advertise</a>
+                    <a href="#"><span class="fbl-icon">🎁</span> Gift Cards</a>
+                    <a href="#"><span class="fbl-icon">❓</span> Help Center</a>
+                </div>
+                <div class="footer-copy">© 2007–2026 Flipkart.com</div>
+                <div class="payment-icons">
+                    <span class="pay-badge visa">VISA</span>
+                    <span class="pay-badge mc">MC</span>
+                    <span class="pay-badge amex">AMEX</span>
+                    <span class="pay-badge upi">UPI</span>
+                    <span class="pay-badge rupay">RuPay</span>
+                    <span class="pay-badge">Net Banking</span>
+                    <span class="pay-badge">COD</span>
+                    <span class="pay-badge">EMI</span>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- END CONTAINER -->
+
+    <!-- ==================== SIMPLE INTERACTIVITY SCRIPT ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Nav item active state switcher ---
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    navItems.forEach(n => n.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // --- Wishlist button toggle ---
+            const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+            wishlistBtns.forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (this.textContent.trim() === '♡') {
+                        this.textContent = '❤️';
+                        this.style.color = '#e8455b';
+                        this.style.animation = 'popIn 0.35s ease';
+                    } else {
+                        this.textContent = '♡';
+                        this.style.color = '';
+                        this.style.animation = '';
+                    }
+                });
+            });
+
+            // --- Cart badge increment on product card click ---
+            const productCards = document.querySelectorAll('.product-card');
+            const cartBadge = document.querySelector('.cart-badge');
+            let cartCount = 0;
+
+            productCards.forEach(card => {
+                card.addEventListener('click', function (e) {
+                    // Don't trigger if clicking wishlist button
+                    if (e.target.closest('.wishlist-btn')) return;
+                    cartCount++;
+                    cartBadge.textContent = cartCount;
+                    // Quick pulse animation
+                    cartBadge.style.transform = 'scale(1.4)';
+                    setTimeout(() => {
+                        cartBadge.style.transform = 'scale(1)';
+                    }, 200);
+                    // Flash feedback
+                    const flash = document.createElement('div');
+                    flash.textContent = '✓ Added to cart!';
+                    flash.style.cssText = `
+                            position:fixed;top:20px;left:50%;transform:translateX(-50%);
+                            background:#388e3c;color:#fff;padding:12px 28px;border-radius:30px;
+                            font-weight:700;font-size:15px;z-index:9999;pointer-events:none;
+                            animation:fadeSlide 1.8s ease forwards;
+                            box-shadow:0 6px 20px rgba(0,0,0,0.25);
+                        `;
+                    document.body.appendChild(flash);
+                    setTimeout(() => flash.remove(), 1800);
+                });
+            });
+
+            // --- View All buttons alert ---
+            const viewAllBtns = document.querySelectorAll('.view-all');
+            viewAllBtns.forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const sectionTitle = this.closest('.section-header').querySelector('h2')
+                        .textContent;
+                    alert(`🔍 Viewing all items in: ${sectionTitle}`);
+                });
+            });
+
+            // --- Banner click alerts ---
+            const banners = document.querySelectorAll('.banner-slide');
+            banners.forEach(banner => {
+                banner.addEventListener('click', function () {
+                    const title = this.querySelector('.banner-title')?.textContent ||
+                        'Special Offer';
+                    alert(`🎯 You clicked on: ${title}\nRedirecting to offer page...`);
+                });
+            });
+
+            // --- Category card click ---
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const name = this.querySelector('.cat-name').textContent;
+                    alert(`📂 Browsing category: ${name}`);
+                });
+            });
+
+            // --- Brand card click ---
+            const brandCards = document.querySelectorAll('.brand-card');
+            brandCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const name = this.querySelector('.brand-name').textContent;
+                    alert(`🏷️ Viewing brand: ${name}`);
+                });
+            });
+
+            // --- Trend card click ---
+            const trendCards = document.querySelectorAll('.trend-card');
+            trendCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const label = this.querySelector('.trend-card-label').textContent;
+                    alert(`✨ Exploring trend: ${label}`);
+                });
+            });
+
+            console.log('✅ Flipkart layout initialized with full interactivity!');
+            console.log('   - Nav switching active state');
+            console.log('   - Wishlist heart toggle');
+            console.log('   - Cart badge with animation');
+            console.log('   - Product/banner/category click feedback');
+            console.log('   - View All section navigation');
+        });
+
+        // Add keyframe for the toast animation
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+                @keyframes fadeSlide {
+                    0% { opacity:0; transform:translateX(-50%) translateY(-30px); }
+                    15% { opacity:1; transform:translateX(-50%) translateY(0); }
+                    75% { opacity:1; transform:translateX(-50%) translateY(0); }
+                    100% { opacity:0; transform:translateX(-50%) translateY(-25px); }
+                }
+                @keyframes popIn {
+                    0% { transform:scale(1); }
+                    40% { transform:scale(1.5); }
+                    100% { transform:scale(1); }
+                }
+            `;
+        document.head.appendChild(styleSheet);
+    </script>
+
+</body>
+
+</html>
